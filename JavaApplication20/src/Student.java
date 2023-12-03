@@ -11,11 +11,11 @@ import java.util.*;
  */
 public class Student {
 
-    private String studentId;
+    private int studentId;
     private String name;
     private String contactNumber;
 
-    public Student(String studentId, String name, String contactNumber) {
+    public Student(int studentId, String name, String contactNumber) {
         this.studentId = studentId;
         this.name = name;
         this.contactNumber = contactNumber;
@@ -45,11 +45,11 @@ public class Student {
         return false;
     }
 
-    public String getStudentId() {
+    public int getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(int studentId) {
         this.studentId = studentId;
     }
 
