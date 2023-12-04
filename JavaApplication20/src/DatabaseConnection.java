@@ -24,6 +24,8 @@ public class DatabaseConnection {
     }
 
     public static void initialize() {
+        Connection connection = null;
+
         String createBooksTable = "CREATE TABLE IF NOT EXISTS Books("
                 + "SN TEXT PRIMARY KEY,"
                 + "Title TEXT NOT NULL,"
@@ -49,13 +51,36 @@ public class DatabaseConnection {
                 + "FOREIGN KEY(SN) REFERENCES Books(SN),"
                 + "FOREIGN KEY(StId) REFERENCES Students(StudentId))";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:Library.db"); Statement statement = connection.createStatement()) {
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:Library.db");
+            Statement statement = connection.createStatement();
+
+//            statement.executeUpdate("DROP TABLE IF EXISTS Books");
             statement.executeUpdate(createBooksTable);
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:Library.db");
+            Statement statement = connection.createStatement();
+
+//            statement.executeUpdate("DROP TABLE IF EXISTS Students");
             statement.executeUpdate(createStudentsTable);
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:Library.db");
+            Statement statement = connection.createStatement();
+            
+//            statement.executeUpdate("DROP TABLE IF EXISTS IssuedBooks");
             statement.executeUpdate(createIssuedBooksTable);
         } catch (SQLException e) {
             System.err.println(e);
         }
+
     }
 
     public static void loadBooksTable(LibraryModel library) {
@@ -66,9 +91,19 @@ public class DatabaseConnection {
 
             while (rs.next()) {
                 String sn = rs.getString("SN");
-                
-                if (!library.getBook().get(0).getSn().equalsIgnoreCase(sn)) {
-                    
+
+                for (Book books : library.getBook()) {
+                    if (!books.getSn().equalsIgnoreCase(sn)) {
+                        Book book = new Book(
+                                sn,
+                                rs.getString("Title"),
+                                rs.getString("Author"),
+                                rs.getString("Publisher"),
+                                rs.getDouble("Price"),
+                                rs.getInt("Quantity"),
+                                rs.getInt("Issued"),
+                                rs.getDate("AddedDate"));
+                    }
                 }
             }
         } catch (SQLException e) {

@@ -1,5 +1,9 @@
 
-import java.util.*;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -19,6 +23,7 @@ public class Book {
     private int quantity;
     private int issuedQuantity;
     private Date dateOfPurchase;
+    Connection connection = null;
 
     public Book(String sn, String title, String author, String publisher, double price, int quantity, int issuedQuantity, Date dateOfPurchase) {
         this.sn = sn;
@@ -41,7 +46,37 @@ public class Book {
     }
 
     public void addBook(Book book) {
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:Library.db");
 
+            String query = ("INSERT INTO Books("
+                    + "SN,"
+                    + "Title,"
+                    + "Author,"
+                    + "Publisher,"
+                    + "Price,"
+                    + "Quantity,"
+                    + "Issued,"
+                    + "AddedDate) "
+                    + "VALUES(?,?,?,?,?,?,?,?)");
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date = sdf.format(book.getDateOfPurchase());
+
+            preparedStatement.setString(1, book.getSn());
+            preparedStatement.setString(2, book.getTitle());
+            preparedStatement.setString(3, book.getAuthor());
+            preparedStatement.setString(4, book.getPublisher());
+            preparedStatement.setDouble(5, book.getPrice());
+            preparedStatement.setInt(6, book.getQuantity());
+            preparedStatement.setInt(7, book.getIssuedQuantity());
+            preparedStatement.setString(8, date);
+            
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
     }
 
     public boolean issueBook(Book book, Student student) {

@@ -14,6 +14,11 @@ public class Test {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        DatabaseConnection db;
+        
+        db = DatabaseConnection.getInstance();
+        
+        db.initialize();
     }
     
 }

@@ -25,17 +25,22 @@ public class LibrarianGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        addBookButton = new javax.swing.JButton();
+        issueBookButton = new javax.swing.JButton();
+        returnBookButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Add Book");
+        addBookButton.setText("Add Book");
+        addBookButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBookButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Issue Book");
+        issueBookButton.setText("Issue Book");
 
-        jButton3.setText("Return Book");
+        returnBookButton.setText("Return Book");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -43,11 +48,11 @@ public class LibrarianGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addComponent(jButton1)
+                .addComponent(addBookButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(issueBookButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(returnBookButton)
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -55,14 +60,22 @@ public class LibrarianGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(133, 133, 133)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(addBookButton)
+                    .addComponent(issueBookButton)
+                    .addComponent(returnBookButton))
                 .addContainerGap(144, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addBookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookButtonActionPerformed
+        // TODO add your handling code here:
+        AddBook ab = new AddBook();
+        ab.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_addBookButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -100,8 +113,8 @@ public class LibrarianGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton addBookButton;
+    private javax.swing.JButton issueBookButton;
+    private javax.swing.JButton returnBookButton;
     // End of variables declaration//GEN-END:variables
 }
